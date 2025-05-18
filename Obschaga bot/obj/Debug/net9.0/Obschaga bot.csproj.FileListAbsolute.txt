@@ -1,0 +1,49 @@
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Obschaga bot.exe
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Obschaga bot.deps.json
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Obschaga bot.runtimeconfig.json
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Obschaga bot.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Obschaga bot.pdb
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Telegram.Bot.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.csproj.AssemblyReference.cache
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.AssemblyInfoInputs.cache
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.AssemblyInfo.cs
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.csproj.CoreCompileInputs.cache
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga.D438FA5D.Up2Date
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\refint\Obschaga bot.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.pdb
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\Obschaga bot.genruntimeconfig.cache
+E:\Projects\C#\Obschaga bot\Obschaga bot\obj\Debug\net9.0\ref\Obschaga bot.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\EntityFramework.SqlServer.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\EntityFramework.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Data.SQLite.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.CodeDom.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Data.SqlClient.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Data.SQLite.EF6.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Drawing.Common.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Security.Permissions.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\System.Windows.Extensions.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win-arm64\native\sni.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win-x64\native\sni.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win-x86\native\sni.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\linux-x64\native\SQLite.Interop.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\osx-x64\native\SQLite.Interop.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win-x64\native\SQLite.Interop.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win-x86\native\SQLite.Interop.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\Projects\C#\Obschaga bot\Obschaga bot\bin\Debug\net9.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
