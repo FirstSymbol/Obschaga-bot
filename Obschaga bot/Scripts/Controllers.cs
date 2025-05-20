@@ -277,10 +277,9 @@ public static class Controllers
       var markup = new InlineKeyboardMarkup(
         await Keyboards.Inlines.OpenChangeRegisterRequest());
       markup.AddNewRow(await Keyboards.Inlines.OpenMenu(userId));
-      var tPath = Program.ExecuteLocation + '/' + t.ImagePath;
-      if (File.Exists(tPath))
+      if (File.Exists(t!.ImagePath))
       {
-        await using Stream stream = File.OpenRead(tPath);
+        await using Stream stream = File.OpenRead(t.ImagePath);
 
         await Program.Bot.SendPhoto(
           chatId,
