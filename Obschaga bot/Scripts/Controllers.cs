@@ -30,16 +30,16 @@ public static class Controllers
   }
   public static class DownloadAndSave
   {
-    public static async Task SinglePhoto(Message msg, string path, string fileName)
+    public static async Task SinglePhoto(Message msg, string folderPath, string fileName)
     {
-      if (Directory.Exists(path) == false)
+      if (Directory.Exists(folderPath) == false)
       {
-        var t = Directory.CreateDirectory(path);
+        var t = Directory.CreateDirectory(folderPath);
       }
 
       var fileId = msg.Photo![^1].FileId;
       var tgFile = await Program.Bot.GetFile(fileId);
-      await using var stream = File.Create(path + '/' + fileName);
+      await using var stream = File.Create(folderPath + '/' + fileName);
       await Program.Bot.DownloadFile(tgFile, stream);
     }
   }
@@ -218,10 +218,10 @@ public static class Controllers
     {
       if (msg.Type == MessageType.Photo)
       {
-        var path = $"{Program.MediaPath}\\Register\\Images";
+        var folderPath = $"{Program.MediaPath}/Register/Images";
         var fileName = $"Image_{msg.From!.Id}.jpg";
-        await DownloadAndSave.SinglePhoto(msg, path, fileName);
-        Program.ProfilesRequests[msg.Chat.Id].ImagePath = path + '\\' + fileName;
+        await DownloadAndSave.SinglePhoto(msg, folderPath, fileName);
+        Program.ProfilesRequests[msg.Chat.Id].ImagePath = folderPath + '/' + fileName;
         await RegisterFinish(msg.Chat.Id, msg.From.Id);
       }
       else
@@ -412,11 +412,11 @@ public static class Controllers
     {
       if (msg.Type == MessageType.Photo)
       {
-        var path = $"{Program.MediaPath}/Register/Images";
+        var folderPath = $"{Program.MediaPath}/Register/Images";
         var fileName = $"Image_{msg.From!.Id}.jpg";
-        await DownloadAndSave.SinglePhoto(msg, path, fileName);
+        await DownloadAndSave.SinglePhoto(msg, folderPath, fileName);
 
-        await Db.ChangeRegisterRequestField(msg.From.Id, "image_path", path + '\\' + fileName);
+        await Db.ChangeRegisterRequestField(msg.From.Id, "image_path", folderPath + '/' + fileName);
         await Program.Bot.SendMessage(msg.Chat.Id, "Ваше фото пропуска было успешно изменено");
         await OpenRegisterRequestView(msg.Chat.Id, msg.From.Id);
       }
