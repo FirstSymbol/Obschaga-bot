@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Diagnostics;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -16,16 +17,85 @@ public static class Controllers
       await Program.Bot.SendMessage(
         chatId: chatId,
         text: "Все действия были отменены",
-        replyMarkup: new InlineKeyboardMarkup(await Keyboards.Inlines.OpenMenu(userId))
+        replyMarkup: new InlineKeyboardMarkup(await Keyboards.Inlines.OpenMenu(userId, await Db.GetProfileType(userId)))
       );
     }
     public static async Task OpenMenu(long chatId, long userId, ProfileType profileType)
     {
-      switch (profileType)
+      await Program.Bot.SendMessage(
+        chatId: chatId,
+        text: "МЕНЮ",
+        replyMarkup: await Keyboards.Markups.OpenMenu(userId, profileType)
+      );
+    }
+
+    public static async Task OpenProfilePage(long chatId, long userId, ProfileType profileType)
+    {
+      Profile? profile = await Db.GetProfile(userId);
+      if (profile is null)
       {
-        case ProfileType.Empty: await Registration.OpenRegisterWindow(chatId, userId); break;
-        case ProfileType.User: break;
+        await Registration.OpenRegisterWindow(chatId, userId);
+        return;
       }
+
+      var text = $"<b>Данные вашего профиля:</b>\n" +
+                 $"ID профиля: {profile.Id};\n" +
+                 $"Тип аккаунта: {profile.ProfileType};\n" +
+                 $"Имя: {profile.FirstName};\n" +
+                 $"Фамилия: {profile.LastName};\n" +
+                 $"Отчество: {profile.Patronymic};\n" +
+                 $"Номер курса: {profile.Course};\n" +
+                 $"Номер комнаты: {profile.Room};\n";
+      
+      await Program.Bot.SendMessage(
+        chatId: chatId,
+        text: text,
+        ParseMode.Html,
+        replyMarkup: new InlineKeyboardMarkup(await Keyboards.Inlines.OpenMenu(userId, await Db.GetProfileType(userId), "Назад"))
+      );
+
+    }
+
+    public static async Task OpenAdminPanel(long chatId, long userId, ProfileType profileType)
+    {
+      if (profileType is not ProfileType.Admin)
+      {
+        await DontHavePermission(chatId, userId, profileType);
+        return;
+      }
+      
+      await Program.Bot.SendMessage(
+      chatId: chatId,
+      text: "ПАНЕЛЬ АДМИНИСТРАТОРА",
+      replyMarkup: await Keyboards.Markups.OpenAdminPanel(userId, profileType)
+      );
+    }
+
+    public static async Task OpenAdminRequestsRegister(long chatId, long userId, ProfileType profileType)
+    {
+      if (profileType is not ProfileType.Admin)
+      {
+        await DontHavePermission(chatId, userId, profileType);
+        return;
+      }
+
+      InlineKeyboardMarkup markup = new(await Keyboards.Inlines.OpenAdminPanel(userId, profileType, "Назад"));
+      markup.AddButton(await Keyboards.Inlines.OpenMenu(userId, profileType));
+      
+      await Program.Bot.SendMessage(
+        chatId: chatId,
+        text: "Запросы на регистрацию",
+        replyMarkup: markup 
+      );
+    }
+
+    public static async Task DontHavePermission(long chatId, long userId, ProfileType profileType)
+    {
+      await Program.Bot.SendMessage(
+        chatId:chatId,
+        text: "<b>У вас нет прав для выполнения данной команды!</b>",
+        parseMode: ParseMode.Html,
+        replyMarkup: await Keyboards.Inlines.OpenMenu(userId, profileType));
     }
   }
   public static class DownloadAndSave
@@ -240,7 +310,7 @@ public static class Controllers
     {
       await Db.AddRegisterRequest(Program.ProfilesRequests[chatId]);
       InlineKeyboardMarkup markup = await Keyboards.Markups.SendRegisterRequest(userId);
-      markup.AddNewRow(await Keyboards.Inlines.OpenMenu(userId));
+      markup.AddNewRow(await Keyboards.Inlines.OpenMenu(userId, await Db.GetProfileType(userId)));
       await Program.Bot.SendMessage(
         chatId,
         "Ваш запрос на регистрацию был отправлен на проверку. Ожидайте решения.",
@@ -257,7 +327,7 @@ public static class Controllers
         await Db.DeleteRegisterRequest(userId);
         await Program.Bot.SendMessage(chatId,
           "Ваша заявка была удалена!",
-          replyMarkup: await Keyboards.Inlines.OpenMenu(userId)
+          replyMarkup: await Keyboards.Inlines.OpenMenu(userId, await Db.GetProfileType(userId))
         );
         Console.WriteLine($"{userId} удалил заявку!");
         await OpenRegisterWindow(chatId, userId);
@@ -277,7 +347,7 @@ public static class Controllers
 
       var markup = new InlineKeyboardMarkup(
         await Keyboards.Inlines.OpenChangeRegisterRequest());
-      markup.AddNewRow(await Keyboards.Inlines.OpenMenu(userId));
+      markup.AddNewRow(await Keyboards.Inlines.OpenMenu(userId, await Db.GetProfileType(userId)));
       string executeImagePath = Program.ExecuteLocation + '/' + t!.ImagePath;
       if (File.Exists(executeImagePath))
       {

@@ -17,8 +17,8 @@ public static class Keyboards
   
   public static class Callbacks
   {
-    public static async Task<string> OpenMenu(long userId) => 
-      $"open_menu_{await Db.GetProfileType(userId)}";
+    public static async Task<string> OpenMenu(long userId, ProfileType profileType) => 
+      $"open_menu_{profileType}";
 
     public static async Task<string> StartRegisterRequest() => 
       $"open_register_start";
@@ -35,6 +35,15 @@ public static class Keyboards
       $"open_register_change";
     public static async Task<string> CancelRegisterRequest() =>
       $"cancel_register";
+    
+    public static async Task<string> OpenAdminPanel(long userId, ProfileType profileType) =>
+      $"open_admin_panel_{profileType}";
+    
+    public static async Task<string> OpenAdminRegisterRequests(ProfileType profileType) =>
+      $"open_admin_requests_register_{profileType}";
+    
+    public static async Task<string> OpenProfilePage(long userId, ProfileType profileType) =>
+      $"open_profile_page_{profileType}";
 
   }
   
@@ -45,8 +54,16 @@ public static class Keyboards
 
   public static class Inlines
   {
-    public static async Task<InlineKeyboardButton> OpenMenu(long userId, string title = "Меню") => 
-      new(title, await Callbacks.OpenMenu(userId));
+    public static async Task<InlineKeyboardButton> OpenAdminRegisterRequests(ProfileType profileType, string title = "Заявки на регистрацию") => 
+      new(title, await Callbacks.OpenAdminRegisterRequests(profileType));
+    public static async Task<InlineKeyboardButton> OpenProfilePage(long userId, ProfileType profileType, string title = "Профиль") =>
+      new(title, await Callbacks.OpenProfilePage(userId, profileType));
+
+    public static async Task<InlineKeyboardButton> OpenAdminPanel(long userId, ProfileType profileType, string title = "Панель администратора") =>
+      new(title, await Callbacks.OpenAdminPanel(userId, profileType));
+    
+    public static async Task<InlineKeyboardButton> OpenMenu(long userId, ProfileType profileType, string title = "Меню") => 
+      new(title, await Callbacks.OpenMenu(userId, profileType));
 
     public static async Task<InlineKeyboardButton> SendRegisterRequest(string title = "Зарегистрироваться") =>
       new InlineKeyboardButton(title, await Callbacks.StartRegisterRequest());
@@ -71,6 +88,35 @@ public static class Keyboards
 
   public static class Markups
   {
+    public static async Task<InlineKeyboardMarkup> OpenAdminPanel(long userId, ProfileType profileType)
+    {
+      InlineKeyboardMarkup markup = new();
+      markup.AddButton(await Inlines.OpenAdminRegisterRequests(profileType));
+      markup.AddNewRow(await Inlines.OpenMenu(userId, profileType));
+      return markup;
+    }
+    public static async Task<InlineKeyboardMarkup> OpenMenu(long userId, ProfileType profileType)
+    {
+      InlineKeyboardMarkup markup = null;
+      
+      if (profileType == ProfileType.Empty){}
+      else
+      {
+        markup = new InlineKeyboardMarkup();
+        markup.AddNewRow(await Inlines.OpenProfilePage(userId, profileType));
+        
+        switch (profileType)
+        {
+          case ProfileType.Admin:
+          {
+            markup.AddNewRow(await Inlines.OpenAdminPanel(userId, (ProfileType)profileType));
+            break;
+          }
+        }
+      }
+      
+      return markup;
+    }
     public static async Task<InlineKeyboardMarkup> SendRegisterRequest(long userId)
     {
       Task<bool> isRegisterRequestExist = Controllers.BoolOperations.IsRegisterRequestExist(userId);

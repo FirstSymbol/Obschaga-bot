@@ -11,7 +11,7 @@ public static class Db
     var profile = await GetProfile(userId);
     ProfileType profileType = ProfileType.Empty;
     if (profile is not null) 
-      profileType = (ProfileType)profile.ProfileType;
+      profileType = (ProfileType)profile.ProfileType!;
     return profileType;
   }
   
@@ -129,7 +129,7 @@ public static class Db
     Profile profile = null;
     
     SQLiteCommand c = new SQLiteCommand(db);
-    c.CommandText = $"SELECT id FROM Profiles WHERE id={userId}";
+    c.CommandText = $"SELECT * FROM Profiles WHERE id={userId}";
     
     bool isAvaible = false;
     

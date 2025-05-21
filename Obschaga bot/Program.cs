@@ -54,7 +54,7 @@ internal abstract class Program
       
         if (isProfileExist.Result)
         {
-          await Bot.SendMessage(msg.Chat.Id, "Вы есть в базе", ParseMode.Html);
+          await Controllers.General.OpenMenu(msg.Chat.Id, msg.From.Id, await Db.GetProfileType(msg.From.Id));
         }
         else
         {
@@ -77,7 +77,12 @@ internal abstract class Program
 
     async Task OnError(Exception exception, HandleErrorSource source)
     {
-      Console.WriteLine(exception);
+      if (exception is Telegram.Bot.Exceptions.RequestException)
+        Console.WriteLine("Ошибка запроса.");
+      else if (exception is Telegram.Bot.Exceptions.ApiRequestException)
+        Console.WriteLine("Ошибка API запроса.");
+      else
+        Console.WriteLine(exception);
     }
 
     #region Handlers
@@ -90,7 +95,7 @@ internal abstract class Program
       long chatId = callbackQuery.Message!.Chat.Id;
       
       ProfileType profileType = ProfileType.Empty;
-      if (Enum.TryParse<ProfileType>(queryParams[0], out ProfileType pr)) profileType = pr;
+      if (Enum.TryParse<ProfileType>(queryParams[^1], out ProfileType pr)) profileType = pr;
 
       switch (queryParams[0])
       {
@@ -109,6 +114,29 @@ internal abstract class Program
              break; 
             }
             case "menu": await Controllers.General.OpenMenu(chatId, userId, profileType); break;
+            case "profile":
+            {
+              if (queryParams[2] == "page")
+              {
+                Console.WriteLine(profileType);
+                await Controllers.General.OpenProfilePage(chatId, userId, profileType);
+              }
+              break;
+            }
+            case "admin":
+            {
+              switch (queryParams[2])
+              {
+                case "requests":
+                  if (queryParams[3] == "register")
+                    await Controllers.General.OpenAdminRequestsRegister(chatId, userId, profileType);
+                  break;
+                case "panel":
+                  await Controllers.General.OpenAdminPanel(chatId, userId, profileType);
+                  break;
+              }
+              break;
+            }
           }
           break;
         }
