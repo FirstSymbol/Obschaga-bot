@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Obschaga bot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0955ec0acfd085e79de1cfdc49f1fb11c4d5f3e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+054ac108b1ee6c35b156c68d4510f6482a9010bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Obschaga bot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Obschaga bot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -17,7 +17,7 @@ public static class Db
   
   public static async Task AddRegisterRequest(RegisterRequestElement registerRequest)
   {
-    string connectionString = $"Data Source={Program.DBPath};Version=3;";
+    string connectionString = $"Data Source={Program.ExecuteDBPath};Version=3;";
     using SQLiteConnection db = new SQLiteConnection(connectionString);
   
     db.Open();
@@ -39,7 +39,7 @@ public static class Db
 
   public static async Task ChangeRegisterRequestField(long userId, string fieldName, object fieldValue)
   {
-    string connectionString = $"Data Source={Program.DBPath};Version=3;";
+    string connectionString = $"Data Source={Program.ExecuteDBPath};Version=3;";
     using SQLiteConnection db = new SQLiteConnection(connectionString);
     string t;
     db.Open();
@@ -64,7 +64,7 @@ public static class Db
   }
   public static async Task DeleteRegisterRequest(long userId)
   {
-    string connectionString = $"Data Source={Program.DBPath};Version=3;";
+    string connectionString = $"Data Source={Program.ExecuteDBPath};Version=3;";
     using SQLiteConnection db = new SQLiteConnection(connectionString);
     string path;
     db.Open();
@@ -83,7 +83,7 @@ public static class Db
   }
   public static async Task<RegisterRequestElement?> GetRegisterRequest(long userId)
   {
-    string connectionString = $"Data Source={Program.DBPath};Version=3;";
+    string connectionString = $"Data Source={Program.ExecuteDBPath};Version=3;";
     using SQLiteConnection db = new SQLiteConnection(connectionString);
   
     db.Open();
@@ -121,7 +121,7 @@ public static class Db
   }
   public static async Task<Profile?> GetProfile(long userId)
   {
-    string connectionString = $"Data Source={Program.DBPath};Version=3;";
+    string connectionString = $"Data Source={Program.ExecuteDBPath};Version=3;";
     using SQLiteConnection db = new SQLiteConnection(connectionString);
   
     db.Open();

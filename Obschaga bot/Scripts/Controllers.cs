@@ -32,14 +32,15 @@ public static class Controllers
   {
     public static async Task SinglePhoto(Message msg, string folderPath, string fileName)
     {
-      if (Directory.Exists(folderPath) == false)
+      string executeFolderPath = Program.ExecuteLocation + '/' + folderPath;
+      if (Directory.Exists(executeFolderPath) == false)
       {
-        var t = Directory.CreateDirectory(folderPath);
+        var t = Directory.CreateDirectory(executeFolderPath);
       }
 
       var fileId = msg.Photo![^1].FileId;
       var tgFile = await Program.Bot.GetFile(fileId);
-      await using var stream = File.Create(folderPath + '/' + fileName);
+      await using var stream = File.Create(executeFolderPath + '/' + fileName);
       await Program.Bot.DownloadFile(tgFile, stream);
     }
   }
@@ -277,9 +278,10 @@ public static class Controllers
       var markup = new InlineKeyboardMarkup(
         await Keyboards.Inlines.OpenChangeRegisterRequest());
       markup.AddNewRow(await Keyboards.Inlines.OpenMenu(userId));
-      if (File.Exists(t!.ImagePath))
+      string executeImagePath = Program.ExecuteLocation + '/' + t!.ImagePath;
+      if (File.Exists(executeImagePath))
       {
-        await using Stream stream = File.OpenRead(t.ImagePath);
+        await using Stream stream = File.OpenRead(executeImagePath);
 
         await Program.Bot.SendPhoto(
           chatId,
@@ -292,7 +294,7 @@ public static class Controllers
       {
         await Program.Bot.SendMessage(
           chatId,
-          text + ": ОТСУТСТВУЕТ",
+          text + ": ТРЕБУЕТСЯ ДОБАВИТЬ!!!",
           replyMarkup: markup
         );
       }

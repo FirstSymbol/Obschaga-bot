@@ -17,9 +17,9 @@ internal abstract class Program
   public static readonly Dictionary<long, Func<Message,Task>> PendingActions = new(); 
   public static readonly Dictionary<long, RegisterRequestElement> ProfilesRequests = new();
   public static TelegramBotClient Bot;
-  public static string ExecuteLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+  public static string ExecuteLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
   public static string BotToken;
-  public static string DBPath;
+  public static string ExecuteDBPath;
   public static string MediaPath;
   public static async Task Main(string[] args)
   {
@@ -27,8 +27,8 @@ internal abstract class Program
     Env.Load($"{ExecuteLocation}/../bot.env");
     
     BotToken = Env.GetString("TELEGRAM_BOT_TOKEN");
-    DBPath = ExecuteLocation + '/' + Env.GetString("DATABASE_PATH");
-    MediaPath = ExecuteLocation + '/' + Env.GetString("MEDIA_DIRECTORY_PATH");
+    ExecuteDBPath = ExecuteLocation + '/' + Env.GetString("DATABASE_PATH");
+    MediaPath = Env.GetString("MEDIA_DIRECTORY_PATH");
     using var cts = new CancellationTokenSource();
     Bot = new TelegramBotClient(BotToken, cancellationToken: cts.Token);
     var me = await Bot.GetMe();
@@ -49,7 +49,7 @@ internal abstract class Program
       }
       else
       {
-        var isProfileExist = Controllers.BoolOperations.IsProfileExist(msg.From.Id);
+        var isProfileExist = Controllers.BoolOperations.IsProfileExist(msg.From!.Id);
         await isProfileExist;
       
         if (isProfileExist.Result)
@@ -70,7 +70,7 @@ internal abstract class Program
       switch (update.Type)
       {
         case UpdateType.CallbackQuery:
-          await OnCallbackQuery(update.CallbackQuery);
+          await OnCallbackQuery(update.CallbackQuery!);
           break;
       }
     }
@@ -145,7 +145,7 @@ internal abstract class Program
 
   private static async Task SendInDevelopment(CallbackQuery callbackQuery)
   {
-    await Bot.SendMessage(callbackQuery.Message.Chat.Id, "БОТ НАХОДИТСЯ В РАЗРАБОТКЕ");
+    await Bot.SendMessage(callbackQuery.Message!.Chat.Id, "БОТ НАХОДИТСЯ В РАЗРАБОТКЕ");
   }
 }
 
